@@ -4,7 +4,7 @@ import {useEffect} from "react";
 
 const App = () => {
 
-    const lambdaUrl = "https://9mebwsh049.execute-api.eu-west-2.amazonaws.com/dev/"
+    const lambdaUrl = "https://vm7kzvbmg5.execute-api.eu-west-2.amazonaws.com/dev/"
 
     useEffect(() => {
         fetch(lambdaUrl)

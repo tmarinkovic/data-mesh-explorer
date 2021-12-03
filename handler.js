@@ -4,6 +4,9 @@ const providers = require('./lambdas/dataMeshBlueprint/providers/providers');
 exports.getDataMeshBlueprint = async (event) => {
     return {
         statusCode: 200,
-        body: JSON.stringify({result: getDataMeshBlueprint(providers.LOCAL)})
+        body: JSON.stringify(getDataMeshBlueprint(providers.LOCAL)),
+        headers: {
+            "Access-Control-Allow-Origin": "*"
+        },
     };
 };
