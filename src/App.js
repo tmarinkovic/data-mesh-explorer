@@ -1,36 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
 import {useEffect} from "react";
+import Header from "./components/header/header";
+import {Grid, Paper} from "@material-ui/core";
+import TableView from "./components/TableView/TableView";
+import {setSearchResult} from "./app/reducers/searchResult";
+import {useDispatch} from "react-redux";
+
+const lambdaUrl = "https://vm7kzvbmg5.execute-api.eu-west-2.amazonaws.com/dev/"
 
 const App = () => {
-
-    const lambdaUrl = "https://vm7kzvbmg5.execute-api.eu-west-2.amazonaws.com/dev/"
-
+    const dispatch = useDispatch()
     useEffect(() => {
         fetch(lambdaUrl)
             .then(response => response.json())
-            .then(data => console.log(data));
-
-// empty dependency array means this effect will only run once (like componentDidMount in classes)
-    }, []);
+            .then(data => dispatch(setSearchResult(data)));
+    }, [dispatch]);
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+        <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <Header/>
+            </Grid>
+            <Grid item xs={6}>
+                <Paper elevation={4}>xs=8</Paper>
+            </Grid>
+            <Grid item xs={6}>
+                <Paper elevation={4}>xs=4</Paper>
+            </Grid>
+            <Grid item xs={12}>
+                <Paper className="padded" elevation={4}>
+                    <TableView/>
+                </Paper>
+            </Grid>
+        </Grid>
     );
 }
 
