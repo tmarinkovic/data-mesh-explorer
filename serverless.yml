@@ -12,6 +12,7 @@ provider:
 package:
   patterns:
     - '!node_modules/**'
+    - 'node_modules/aws-sdk/**'
 
 functions:
   getDataMeshBlueprint:
