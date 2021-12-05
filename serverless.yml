@@ -9,6 +9,10 @@ provider:
   stage: dev
   region: eu-west-2
 
+package:
+  patterns:
+    - '!node_modules/**'
+
 functions:
   getDataMeshBlueprint:
     handler: handler.getDataMeshBlueprint

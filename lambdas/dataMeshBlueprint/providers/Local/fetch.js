@@ -11,6 +11,14 @@ const fetch = () => {
                                 {"Name": "Name", "Type": "String", "Comment": "Name of history book"},
                                 {"Name": "Year", "Type": "Integer", "Comment": "Year of publishing"}
                             ]
+                        },
+                        {
+                            "table": "evolution",
+                            "columns": [
+                                {"Name": "Id", "Type": "Integer", "Comment": "Identifier"},
+                                {"Name": "Path", "Type": "String", "Comment": "Path of evolution"},
+                                {"Name": "Year", "Type": "Integer", "Comment": "Year of evolution"}
+                            ]
                         }
                     ],
                     "mammalsList": [

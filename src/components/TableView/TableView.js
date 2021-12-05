@@ -24,7 +24,6 @@ const TableView = () => {
 
     const drawTableContent = (tables, tableHTML, databaseName) => {
         tables.forEach(table => {
-            console.log(table)
             tableHTML.push(
                 <TableContainer key={`${databaseName}${table.table}`} className="table-container" component={Paper}>
                     <Chip label={databaseName} color="primary"/>
@@ -33,7 +32,7 @@ const TableView = () => {
                            aria-label="a dense table">
                         <TableHead>
                             <TableRow>
-                                <TableCell align="left">Name</TableCell>
+                                <TableCell align="left">Column Name</TableCell>
                                 <TableCell align="left">Type</TableCell>
                                 <TableCell align="left">Comment</TableCell>
                             </TableRow>
