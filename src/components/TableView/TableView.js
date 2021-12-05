@@ -11,12 +11,13 @@ const TableView = () => {
         let tableHTML = []
         for (const [, domain] of Object.entries(blueprint)) {
             for (const [, dataProduct] of Object.entries(domain)) {
-                for (const [databaseName, tables] of Object.entries(dataProduct.inputPorts)) {
-                    drawTableContent(tables, tableHTML, databaseName)
-                }
-                for (const [databaseName, tables] of Object.entries(dataProduct.outputPorts)) {
-                    drawTableContent(tables, tableHTML, databaseName)
-                }
+                ["inputPorts", "outputPorts"].forEach(portType => {
+                    if (portType in dataProduct) {
+                        for (const [databaseName, tables] of Object.entries(dataProduct[portType])) {
+                            drawTableContent(tables, tableHTML, databaseName)
+                        }
+                    }
+                })
             }
         }
         return tableHTML;

@@ -40,6 +40,14 @@ const fetch = () => {
                             "columns": [
                                 {"Name": "Id", "Type": "Integer", "Comment": "Identifier"},
                                 {"Name": "Name", "Type": "String", "Comment": "Name of the mammal"},
+                                {"Name": "Facts", "Type": "Array", "Comment": "List of facts about certain mammals"}
+                            ]
+                        },
+                        {
+                            "table": "mammals",
+                            "columns": [
+                                {"Name": "Id", "Type": "Integer", "Comment": "Identifier"},
+                                {"Name": "Name", "Type": "String", "Comment": "Name of the mammal"},
                             ]
                         }
                     ],
