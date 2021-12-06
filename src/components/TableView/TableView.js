@@ -9,12 +9,12 @@ const TableView = () => {
 
     const drawTable = () => {
         let tableHTML = []
-        for (const [, domain] of Object.entries(blueprint)) {
-            for (const [, dataProduct] of Object.entries(domain)) {
+        for (const [domainName, domain] of Object.entries(blueprint)) {
+            for (const [dataProductName, dataProduct] of Object.entries(domain)) {
                 ["inputPorts", "outputPorts"].forEach(portType => {
                     if (portType in dataProduct) {
                         for (const [databaseName, tables] of Object.entries(dataProduct[portType])) {
-                            drawTableContent(tables, tableHTML, databaseName)
+                            drawTableContent(tables, tableHTML, portType, databaseName, domainName, dataProductName)
                         }
                     }
                 })
@@ -23,12 +23,12 @@ const TableView = () => {
         return tableHTML;
     }
 
-    const drawTableContent = (tables, tableHTML, databaseName) => {
+    const drawTableContent = (tables, tableHTML, portType, databaseName, domainName, dataProductName) => {
         tables.forEach(table => {
             tableHTML.push(
                 <TableContainer key={`${databaseName}${table.table}`} className="table-container" component={Paper}>
-                    <Chip label={databaseName} color="primary"/>
-                    <Chip label={table.table} color="secondary"/>
+                    <Chip label={`${domainName} / ${dataProductName} / ${portType} /  ${databaseName} / ${table.table}`}
+                          color="primary"/>
                     <Table sx={{minWidth: 650}} size="small"
                            aria-label="a dense table">
                         <TableHead>
