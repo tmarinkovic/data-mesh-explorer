@@ -1,22 +1,15 @@
 const json = {
-    "Customer": {
-        "Customer Behaviour": {
+    "DomainName": {
+        "DataProductName": {
             "inputPorts": {
-                "standardized_glovo_live": [
-                    "cities",
-                    "orders",
-                    "devices",
-                    "customers",
-                    "customer_subscriptions",
-                    "customer_subscription_periods",
-                    "stores",
-                    "store_categories"
+                "databaseOneName": [
+                    "tableOneName",
+                    "tableTwoName",
                 ],
-                "ca_refinery_mpcustomer_screen_view": ["all"],
-                "ca_refinery_mpcustomer_custom_event": ["all"]
+                "databaseTwoName": ["all"]
             },
             "outputPorts": {
-                "ca_customer_behaviour": ["all"]
+                "databaseOneName": ["all"]
             }
         }
     }
