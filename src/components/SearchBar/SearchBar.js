@@ -7,9 +7,9 @@ import _ from "lodash";
 
 const SearchBar = () => {
 
+    const dispatch = useDispatch()
     const blueprint = useSelector((state) => state.blueprint.value)
     const [searchBarValue, setSearchBarValue] = useState("");
-    const dispatch = useDispatch()
 
     const search = () => {
         if (searchBarValue === "") {

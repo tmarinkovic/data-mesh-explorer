@@ -7,6 +7,7 @@ import {setSearchResult} from "./app/reducers/searchResult";
 import {useDispatch} from "react-redux";
 import SearchBar from "./components/SearchBar/SearchBar";
 import {setBlueprint} from "./app/reducers/blueprint";
+import SearchView from "./components/SearchView/SearchView";
 
 const lambdaUrl = "https://vm7kzvbmg5.execute-api.eu-west-2.amazonaws.com/dev/"
 
@@ -31,7 +32,9 @@ const App = () => {
                 <Paper elevation={4}>xs=8</Paper>
             </Grid>
             <Grid item xs={6}>
-                <Paper elevation={4}>xs=4</Paper>
+                <Paper className="padded" elevation={4}>
+                    <SearchView/>
+                </Paper>
             </Grid>
             <Grid item xs={12}>
                 <Paper className="padded" elevation={4}>
@@ -40,7 +43,7 @@ const App = () => {
                 </Paper>
             </Grid>
         </Grid>
-    );
+    )
 }
 
 export default App;
