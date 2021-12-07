@@ -22,7 +22,7 @@ const SearchView = () => {
             </Grid>
             <Grid item xs={6}>
                 <Paper elevation={4}>
-                    <TableContainer className="table-container" component={Paper}>
+                    <TableContainer className="table-container table-list" component={Paper}>
                         <Table sx={{minWidth: 650}} size="small"
                                aria-label="a dense table">
                             <TableHead>

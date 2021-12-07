@@ -5,13 +5,15 @@
 .intractable-primary {
     font-weight: bold;
     cursor: pointer;
-    color: #388e3c
+    color: #388e3c;
+    text-decoration: underline;
 }
 
 .intractable-white {
     font-weight: bold;
     cursor: pointer;
     color: white;
+    text-decoration: underline;
 }
 
 .app-bar {
