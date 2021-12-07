@@ -1,5 +1,4 @@
 import Sigma from "react-sigma";
-import RelativeSize from "react-sigma/lib/RelativeSize";
 import {useDispatch, useSelector} from "react-redux";
 import getNetworkSpecification from "./networkSpecification";
 import {setDataProduct, setDomain, setInputPort, setOutputPort} from "../../app/reducers/selected";
@@ -31,7 +30,6 @@ const NetworkView = () => {
                             labelThreshold: 0
                         }
                     }>
-                    <RelativeSize initialSize={1000}/>
                 </Sigma>
             )
         }

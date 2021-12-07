@@ -26,6 +26,14 @@ const createNode = (label, type, domainName, dataProductName) => {
 }
 
 const createNodeWithPosition = (label, type, nodeX, nodeY, domainName, dataProductName, inputPort, outputPort) => {
+    let color = "#000"
+    if (inputPort === null && outputPort === null) {
+        color = "#388e3c"
+    } else if (inputPort === null) {
+        color = "#eb8034"
+    } else if (outputPort === null) {
+        color = "#f0139b"
+    }
     const id = nodeIds
     graph.nodes.push({
         id: `n${nodeIds}`,
@@ -36,6 +44,8 @@ const createNodeWithPosition = (label, type, nodeX, nodeY, domainName, dataProdu
         dataProduct: dataProductName,
         inputPort: inputPort,
         outputPort: outputPort,
+        color: color,
+        size: 10
     })
     nodeIds++
     return id
@@ -74,9 +84,19 @@ const createNodes = (type, ports, domainName, dataProductName) => {
 const createEdges = ({portIds, dataProductNodeId, type}) => {
     portIds.forEach(inputPortId => {
         if (type === 'inputPort') {
-            graph.edges.push({id: `e${edgeIds}`, source: `n${inputPortId}`, target: `n${dataProductNodeId}`})
+            graph.edges.push({
+                id: `e${edgeIds}`,
+                source: `n${inputPortId}`,
+                target: `n${dataProductNodeId}`,
+                color: "#000"
+            })
         } else {
-            graph.edges.push({id: `e${edgeIds}`, target: `n${inputPortId}`, source: `n${dataProductNodeId}`})
+            graph.edges.push({
+                id: `e${edgeIds}`,
+                target: `n${inputPortId}`,
+                source: `n${dataProductNodeId}`,
+                color: "#000"
+            })
         }
         edgeIds++
     })
