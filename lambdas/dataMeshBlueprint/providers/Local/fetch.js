@@ -843,7 +843,26 @@ const fetch = () => {
                         }
                     ],
                 }
-            }
+            },
+            "Birzards": {
+                "level": 2,
+                "inputPorts": [
+                    "Animals.Birds.outputPorts.enriched_birds",
+                    "Animals.Lizards.outputPorts.enriched_lizards",
+                ],
+                "outputPorts": {
+                    "enriched_birzards_list": [
+                        {
+                            "table": "birzards_list",
+                            "columns": [
+                                {"Name": "Id", "Type": "Integer", "Comment": "Identifier"},
+                                {"Name": "Name", "Type": "String", "Comment": "Name of the birzard"},
+                                {"Name": "Facts", "Type": "Array", "Comment": "List of facts about certain birzards"},
+                            ]
+                        }
+                    ]
+                }
+            },
         }
     }
 }
