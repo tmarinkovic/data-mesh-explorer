@@ -122,7 +122,12 @@ const getNetworkSpecification = blueprint => {
             const outputPortNodeIds = createNodes("outputPort", outputPortsArray.map(databaseName => databaseName[0]), domainName, dataProductName)
             createEdges({portIds: outputPortNodeIds, dataProductNodeId, type: "outputPort"})
 
-            y += 1400
+            if (inputPortsArray.length === 1 && outputPortsArray.length === 1) {
+                y += 900
+            } else {
+                y += 1400
+            }
+
         }
     }
     return graph
