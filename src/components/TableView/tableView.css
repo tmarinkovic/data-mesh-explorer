@@ -8,3 +8,9 @@
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
+.tables-count {
+    float: right;
+    position: relative;
+    top: -75px;
+}

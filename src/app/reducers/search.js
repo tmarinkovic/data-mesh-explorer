@@ -5,7 +5,6 @@ export const search = createSlice({
     initialState: {
         result: "",
         query: "",
-        count: 0
     },
     reducers: {
         setSearchResult: (state, action) => {
@@ -14,11 +13,8 @@ export const search = createSlice({
         setSearchQuery: (state, action) => {
             state.query = action.payload
         },
-        setSearchCount: (state, action) => {
-            state.count = action.payload
-        },
     },
 })
 
-export const {setSearchResult, setSearchQuery, setSearchCount} = search.actions
+export const {setSearchResult, setSearchQuery} = search.actions
 export default search.reducer

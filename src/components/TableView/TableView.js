@@ -2,16 +2,22 @@ import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow}
 import {useDispatch, useSelector} from 'react-redux'
 import './tableView.css';
 import {setSearchQuery} from "../../app/reducers/search";
+import {useEffect, useState} from "react";
 
 
 const TableView = () => {
     const dispatch = useDispatch()
-    const blueprint = useSelector((state) => state.search.result)
+    const searchResult = useSelector((state) => state.search.result)
     let tableCount = 0
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        setCount(tableCount)
+    }, [searchResult, tableCount]);
 
     const drawTable = () => {
         let tableHTML = []
-        for (const [domainName, domain] of Object.entries(blueprint)) {
+        for (const [domainName, domain] of Object.entries(searchResult)) {
             for (const [dataProductName, dataProduct] of Object.entries(domain)) {
                 ["inputPorts", "outputPorts"].forEach(portType => {
                     if (portType in dataProduct) {
@@ -64,7 +70,12 @@ const TableView = () => {
         dispatch(setSearchQuery(e.target.textContent))
     }
 
-    return drawTable()
+    return (
+        <div>
+            <div className="tables-count">{count} table(s) found</div>
+            {drawTable()}
+        </div>
+    )
 }
 
 export default TableView

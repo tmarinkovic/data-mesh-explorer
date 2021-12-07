@@ -8,7 +8,6 @@ const SearchBar = () => {
 
     const dispatch = useDispatch()
     const blueprint = useSelector((state) => state.blueprint.value)
-    const count = useSelector((state) => state.search.count)
     const searchQuery = useSelector((state) => state.search.query)
 
     const search = () => {
@@ -89,7 +88,6 @@ const SearchBar = () => {
                 onKeyDown={e => e.key === 'Enter' ? search() : ""}
                 variant="outlined"
             />
-            <div className="tables-count">{count} table(s) found</div>
             <ButtonGroup className="search-buttons" variant="outlined" aria-label="outlined button group">
                 <Button onClick={() => search()} color="primary">Search</Button>
                 <Button onClick={() => clearSearch()} color="secondary">Clear</Button>
