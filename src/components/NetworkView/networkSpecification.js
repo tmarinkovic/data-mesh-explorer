@@ -20,19 +20,28 @@ const calculatePosition = (type, size = 1) => {
     return {nodeX, nodeY}
 }
 
-const createNode = (label, type) => {
+const createNode = (label, type, domainName, dataProductName) => {
     const {nodeX, nodeY} = calculatePosition(type)
-    return createNodeWithPosition(label, type, nodeX, nodeY)
+    return createNodeWithPosition(label, type, nodeX, nodeY, domainName, dataProductName, null, null)
 }
 
-const createNodeWithPosition = (label, type, nodeX, nodeY) => {
+const createNodeWithPosition = (label, type, nodeX, nodeY, domainName, dataProductName, inputPort, outputPort) => {
     const id = nodeIds
-    graph.nodes.push({id: `n${nodeIds}`, label: label, x: nodeX, y: nodeY})
+    graph.nodes.push({
+        id: `n${nodeIds}`,
+        label: label,
+        x: nodeX,
+        y: nodeY,
+        domain: domainName,
+        dataProduct: dataProductName,
+        inputPort: inputPort,
+        outputPort: outputPort,
+    })
     nodeIds++
     return id
 }
 
-const createNodes = (type, ports) => {
+const createNodes = (type, ports, domainName, dataProductName) => {
     let nodesX = x
     if (type === 'outputPort') {
         nodesX = x + 1000
@@ -48,8 +57,16 @@ const createNodes = (type, ports) => {
         // TODO
     }
     const nodes = []
-    for (var i = 0; i < nodesY.length; i++) {
-        nodes.push(createNodeWithPosition(ports[i], type, nodesX, nodesY[i]))
+    let inputPortValue = null
+    let outputPortValue = null
+    for (let i = 0; i < nodesY.length; i++) {
+        if (type === 'inputPort') {
+            inputPortValue = ports[i]
+        }
+        if (type === 'outputPort') {
+            outputPortValue = ports[i]
+        }
+        nodes.push(createNodeWithPosition(ports[i], type, nodesX, nodesY[i], domainName, dataProductName, inputPortValue, outputPortValue))
     }
     return nodes
 }
@@ -67,20 +84,19 @@ const createEdges = ({portIds, dataProductNodeId, type}) => {
 }
 
 const getNetworkSpecification = blueprint => {
-    for (const [, domain] of Object.entries(blueprint)) {
+    for (const [domainName, domain] of Object.entries(blueprint)) {
         for (const [dataProductName, dataProduct] of Object.entries(domain)) {
-            const dataProductNodeId = createNode(dataProductName, "dataProduct")
+            const dataProductNodeId = createNode(dataProductName, "dataProduct", domainName, dataProductName)
 
             const inputPortsArray = Object.entries(dataProduct.inputPorts)
-            const inputPortNodeIds = createNodes("inputPort", inputPortsArray.map(databaseName => databaseName[0]))
+            const inputPortNodeIds = createNodes("inputPort", inputPortsArray.map(databaseName => databaseName[0]), domainName, dataProductName)
             createEdges({portIds: inputPortNodeIds, dataProductNodeId, type: "inputPort"})
 
             const outputPortsArray = Object.entries(dataProduct.outputPorts)
-            const outputPortNodeIds = createNodes("outputPort", outputPortsArray.map(databaseName => databaseName[0]))
+            const outputPortNodeIds = createNodes("outputPort", outputPortsArray.map(databaseName => databaseName[0]), domainName, dataProductName)
             createEdges({portIds: outputPortNodeIds, dataProductNodeId, type: "outputPort"})
         }
     }
-    console.log(graph)
     return graph
 }
 

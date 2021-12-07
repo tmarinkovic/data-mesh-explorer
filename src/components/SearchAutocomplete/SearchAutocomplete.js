@@ -27,6 +27,30 @@ const SearchAutocomplete = ({setTables}) => {
         setDomainList(domains)
     }, [blueprint]);
 
+    useEffect(() => {
+        if (selectedDomain != null) {
+            onDomainChanged({target: {textContent: selectedDomain}})
+        }
+    }, [selectedDomain]);
+
+    useEffect(() => {
+        if (selectedDataProduct != null) {
+            onDataProductChanged({target: {textContent: selectedDataProduct}})
+        }
+    }, [selectedDataProduct]);
+
+    useEffect(() => {
+        if (selectedInputPort != null) {
+            onInputPortChanged({target: {textContent: selectedInputPort}})
+        }
+    }, [selectedInputPort]);
+
+    useEffect(() => {
+        if (selectedOutputPort != null) {
+            onOutputPortChanged({target: {textContent: selectedOutputPort}})
+        }
+    }, [selectedOutputPort]);
+
     const onDomainChanged = e => {
         const domainName = e.target.textContent
         dispatch(setDomain(domainName))
@@ -78,6 +102,7 @@ const SearchAutocomplete = ({setTables}) => {
         <Paper elevation={4}>
             <Autocomplete
                 disablePortal
+                value={selectedDomain}
                 onChange={e => onDomainChanged(e)}
                 className="autocomplete-field"
                 options={domainList}
@@ -85,6 +110,7 @@ const SearchAutocomplete = ({setTables}) => {
             />
             <Autocomplete
                 disablePortal
+                value={selectedDataProduct}
                 onChange={e => onDataProductChanged(e)}
                 className="autocomplete-field"
                 options={dataProductList}
