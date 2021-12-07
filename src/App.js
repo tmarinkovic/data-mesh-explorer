@@ -3,7 +3,7 @@ import {useEffect} from "react";
 import Header from "./components/header/header";
 import {Grid, Paper} from "@material-ui/core";
 import TableView from "./components/TableView/TableView";
-import {setSearchResult} from "./app/reducers/searchResult";
+import {setSearchResult} from "./app/reducers/search";
 import {useDispatch} from "react-redux";
 import SearchBar from "./components/SearchBar/SearchBar";
 import {setBlueprint} from "./app/reducers/blueprint";

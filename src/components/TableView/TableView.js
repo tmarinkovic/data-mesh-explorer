@@ -1,11 +1,13 @@
-import {Chip, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
-import {useSelector} from 'react-redux'
+import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
+import {useDispatch, useSelector} from 'react-redux'
 import './tableView.css';
+import {setSearchQuery} from "../../app/reducers/search";
 
 
 const TableView = () => {
-
-    const blueprint = useSelector((state) => state.searchResult.value)
+    const dispatch = useDispatch()
+    const blueprint = useSelector((state) => state.search.result)
+    let tableCount = 0
 
     const drawTable = () => {
         let tableHTML = []
@@ -25,10 +27,14 @@ const TableView = () => {
 
     const drawTableContent = (tables, tableHTML, portType, databaseName, domainName, dataProductName) => {
         tables.forEach(table => {
+            tableCount++
             tableHTML.push(
                 <TableContainer key={`${databaseName}${table.table}`} className="table-container" component={Paper}>
-                    <Chip label={`${domainName} / ${dataProductName} / ${portType} /  ${databaseName} / ${table.table}`}
-                          color="primary"/>
+                    <div className="white-text div-chip">
+                        {`${domainName} / ${dataProductName} / ${portType}`} / <span onClick={e => setSearchTerm(e)}
+                                                                                     className="intractable-white">{databaseName}</span> / <span
+                        onClick={e => setSearchTerm(e)} className="intractable-white">{table.table}</span>
+                    </div>
                     <Table sx={{minWidth: 650}} size="small"
                            aria-label="a dense table">
                         <TableHead>
@@ -41,7 +47,8 @@ const TableView = () => {
                         <TableBody>
                             {table.columns.map((row) => (
                                 <TableRow key={`${row.Name}`} sx={{'&:last-child td, &:last-child th': {border: 0}}}>
-                                    <TableCell align="left">{row.Name}</TableCell>
+                                    <TableCell align="left"><span onClick={e => setSearchTerm(e)}
+                                                                  className="intractable-primary">{row.Name}</span></TableCell>
                                     <TableCell align="left">{row.Type}</TableCell>
                                     <TableCell align="left">{row.Comment}</TableCell>
                                 </TableRow>
@@ -51,11 +58,13 @@ const TableView = () => {
                 </TableContainer>
             )
         })
+    }
 
+    const setSearchTerm = e => {
+        dispatch(setSearchQuery(e.target.textContent))
     }
 
     return drawTable()
-
 }
 
 export default TableView

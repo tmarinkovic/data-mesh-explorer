@@ -1,18 +1,18 @@
 import "./SearchBar.css"
 import {Button, ButtonGroup, TextField} from "@material-ui/core";
-import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {setSearchResult} from "../../app/reducers/searchResult";
+import {setSearchQuery, setSearchResult} from "../../app/reducers/search";
 import _ from "lodash";
 
 const SearchBar = () => {
 
     const dispatch = useDispatch()
     const blueprint = useSelector((state) => state.blueprint.value)
-    const [searchBarValue, setSearchBarValue] = useState("");
+    const count = useSelector((state) => state.search.count)
+    const searchQuery = useSelector((state) => state.search.query)
 
     const search = () => {
-        if (searchBarValue === "") {
+        if (searchQuery === "") {
             dispatch(setSearchResult(blueprint))
             return
         }
@@ -21,16 +21,16 @@ const SearchBar = () => {
             for (const [dataProductName, dataProduct] of Object.entries(domain)) {
                 ["inputPorts", "outputPorts"].forEach(portType => {
                     for (const [databaseName, tables] of Object.entries(dataProduct[portType])) {
-                        if (searchBarValue === databaseName) {
+                        if (searchQuery === databaseName) {
                             searchResult = searchByName(domainName, dataProductName, databaseName, portType, searchResult, tables);
                             return
                         }
                         tables.forEach(table => {
-                            if (searchBarValue === table.table) {
+                            if (searchQuery === table.table) {
                                 searchResult = searchByName(domainName, dataProductName, databaseName, portType, searchResult, [table]);
                             }
                             table.columns.forEach(row => {
-                                if (searchBarValue === row.Name) {
+                                if (searchQuery === row.Name) {
                                     const foundRow = {
                                         table: table.table,
                                         columns: [{
@@ -75,20 +75,21 @@ const SearchBar = () => {
     }
 
     const clearSearch = () => {
-        setSearchBarValue("")
+        dispatch(setSearchQuery(""))
         dispatch(setSearchResult(blueprint))
     }
 
     return (
         <div>
             <TextField
-                value={searchBarValue}
+                value={searchQuery}
                 className="search-bar"
                 label="Search"
-                onChange={e => setSearchBarValue(e.target.value)}
+                onChange={e => dispatch(setSearchQuery(e.target.value))}
                 onKeyDown={e => e.key === 'Enter' ? search() : ""}
                 variant="outlined"
             />
+            <div className="tables-count">{count} table(s) found</div>
             <ButtonGroup className="search-buttons" variant="outlined" aria-label="outlined button group">
                 <Button onClick={() => search()} color="primary">Search</Button>
                 <Button onClick={() => clearSearch()} color="secondary">Clear</Button>

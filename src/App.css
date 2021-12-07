@@ -1,3 +1,23 @@
 .padded {
     padding: 10px;
 }
+
+.intractable-primary {
+    font-weight: bold;
+    cursor: pointer;
+    color: #388e3c
+}
+
+.intractable-white {
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+}
+
+.app-bar {
+    background-color: #388e3c !important;
+}
+
+.white-text {
+    color: white !important;
+}

@@ -4,7 +4,7 @@ const Header = () => {
 
     return (
         <Box sx={{flexGrow: 1}}>
-            <AppBar position="static">
+            <AppBar position="static" className="app-bar">
                 <Toolbar>
                     <IconButton
                         size="large"
@@ -14,7 +14,7 @@ const Header = () => {
                         sx={{mr: 2}}
                     >
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+                    <Typography variant="h4" component="div" sx={{flexGrow: 1}}>
                         Data Mesh Explorer
                     </Typography>
                 </Toolbar>
