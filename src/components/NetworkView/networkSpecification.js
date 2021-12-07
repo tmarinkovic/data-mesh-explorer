@@ -64,7 +64,13 @@ const createNodes = (type, ports, domainName, dataProductName) => {
     } else if (size === 2) {
         nodesY = [y + 0, y + 1000]
     } else {
-        // TODO
+        nodesY.push(y + 0)
+        const part = 1000 / (size - 1)
+        for (let i = 1; i < size - 1; i++) {
+            nodesY.push(y + part * i)
+        }
+        nodesY.push(y + 1000)
+        console.log(nodesY)
     }
     const nodes = []
     let inputPortValue = null
@@ -116,7 +122,7 @@ const getNetworkSpecification = blueprint => {
             const outputPortNodeIds = createNodes("outputPort", outputPortsArray.map(databaseName => databaseName[0]), domainName, dataProductName)
             createEdges({portIds: outputPortNodeIds, dataProductNodeId, type: "outputPort"})
 
-            y += 1200
+            y += 1400
         }
     }
     return graph
