@@ -3,12 +3,18 @@ import {Button, ButtonGroup, TextField} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {setSearchQuery, setSearchResult} from "../../app/reducers/search";
 import _ from "lodash";
+import {useEffect} from "react";
 
 const SearchBar = () => {
 
     const dispatch = useDispatch()
     const blueprint = useSelector((state) => state.blueprint.value)
     const searchQuery = useSelector((state) => state.search.query)
+    const searchTrigger = useSelector((state) => state.search.triggerCount)
+
+    useEffect(() => {
+        search()
+    }, [searchTrigger]);
 
     const search = () => {
         if (searchQuery === "") {

@@ -2,7 +2,7 @@ import {Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, Tab
 import "./SearchView.css"
 import {useState} from "react";
 import SearchAutocomplete from "../SearchAutocomplete/SearchAutocomplete";
-import {setSearchQuery} from "../../app/reducers/search";
+import {setSearchQuery, triggerSearch} from "../../app/reducers/search";
 import {useDispatch} from "react-redux";
 
 const SearchView = () => {
@@ -12,6 +12,7 @@ const SearchView = () => {
 
     const setSearchTerm = e => {
         dispatch(setSearchQuery(e.target.textContent))
+        dispatch(triggerSearch())
     }
 
     return (

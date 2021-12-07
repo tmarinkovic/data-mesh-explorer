@@ -1,7 +1,7 @@
 import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
 import {useDispatch, useSelector} from 'react-redux'
 import './tableView.css';
-import {setSearchQuery} from "../../app/reducers/search";
+import {setSearchQuery, triggerSearch} from "../../app/reducers/search";
 import {useEffect, useState} from "react";
 
 
@@ -68,6 +68,7 @@ const TableView = () => {
 
     const setSearchTerm = e => {
         dispatch(setSearchQuery(e.target.textContent))
+        dispatch(triggerSearch())
     }
 
     return (
