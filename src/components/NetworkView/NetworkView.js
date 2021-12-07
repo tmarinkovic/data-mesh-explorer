@@ -21,6 +21,7 @@ const NetworkView = () => {
         if (graph.nodes.length !== 0 && graph.edges.length !== 0) {
             return (
                 <Sigma
+                    style={{height: "380px"}}
                     onClickNode={e => onNodeClick(e)}
                     graph={graph}
                     settings={
@@ -37,7 +38,7 @@ const NetworkView = () => {
 
 
     return (
-        <div>
+        <div style={{height: "385px"}}>
             {drawNetwork()}
         </div>
     )
