@@ -68,8 +68,13 @@ const SearchAutocomplete = ({setTables}) => {
 
         const inputPorts = []
         const outputPorts = []
-        for (const [databaseName,] of Object.entries(blueprint[selectedDomain][dataProductName].inputPorts)) {
-            inputPorts.push(databaseName)
+        for (const [databaseName, database] of Object.entries(blueprint[selectedDomain][dataProductName].inputPorts)) {
+            if (isNaN(parseInt(databaseName)) === false) {
+                inputPorts.push(`${database.split(".")[1]}.${database.split(".")[3]}`)
+            } else {
+                inputPorts.push(databaseName)
+            }
+
         }
         for (const [databaseName,] of Object.entries(blueprint[selectedDomain][dataProductName].outputPorts)) {
             outputPorts.push(databaseName)

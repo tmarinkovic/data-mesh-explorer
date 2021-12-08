@@ -127,9 +127,9 @@ const connectNodes = (nodes, connections) => {
     nodes.forEach(node => {
         pathToOutputPorts.forEach(pathToOutputPort => {
             if (
-                pathToOutputPort[0] == node.domain &&
-                pathToOutputPort[1] == node.dataProduct &&
-                pathToOutputPort[3] == node.outputPort) {
+                pathToOutputPort[0] === node.domain &&
+                pathToOutputPort[1] === node.dataProduct &&
+                pathToOutputPort[3] === node.outputPort) {
                 foundNodeIds.push(node.id.replace("n", ""))
             }
         })
