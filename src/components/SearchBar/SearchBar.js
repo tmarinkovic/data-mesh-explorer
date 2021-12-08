@@ -30,25 +30,26 @@ const SearchBar = () => {
                             searchResult = searchByName(domainName, dataProductName, databaseName, portType, searchResult, tables);
                             return
                         }
-                        tables.forEach(table => {
-                            if (searchQuery === table.table) {
-                                searchResult = searchByName(domainName, dataProductName, databaseName, portType, searchResult, [table]);
-                            }
-                            table.columns.forEach(row => {
-                                if (searchQuery === row.Name) {
-                                    const foundRow = {
-                                        table: table.table,
-                                        columns: [{
-                                            Name: row.Name,
-                                            Type: row.Type,
-                                            Comment: row.Comment
-                                        }]
-                                    }
-                                    searchResult = searchByName(domainName, dataProductName, databaseName, portType, searchResult, [foundRow], "row");
+                        if (typeof tables === 'object') {
+                            tables.forEach(table => {
+                                if (searchQuery === table.table) {
+                                    searchResult = searchByName(domainName, dataProductName, databaseName, portType, searchResult, [table]);
                                 }
+                                table.columns.forEach(row => {
+                                    if (searchQuery === row.Name) {
+                                        const foundRow = {
+                                            table: table.table,
+                                            columns: [{
+                                                Name: row.Name,
+                                                Type: row.Type,
+                                                Comment: row.Comment
+                                            }]
+                                        }
+                                        searchResult = searchByName(domainName, dataProductName, databaseName, portType, searchResult, [foundRow], "row");
+                                    }
+                                })
                             })
-                        })
-
+                        }
                     }
                 })
             }
