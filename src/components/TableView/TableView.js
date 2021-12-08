@@ -32,38 +32,41 @@ const TableView = () => {
     }
 
     const drawTableContent = (tables, tableHTML, portType, databaseName, domainName, dataProductName) => {
-        tables.forEach(table => {
-            tableCount++
-            tableHTML.push(
-                <TableContainer key={`${databaseName}${table.table}`} className="table-container" component={Paper}>
-                    <div className="white-text div-chip">
-                        {`${domainName} / ${dataProductName} / ${portType}`} / <span onClick={e => setSearchTerm(e)}
-                                                                                     className="intractable-white">{databaseName}</span> / <span
-                        onClick={e => setSearchTerm(e)} className="intractable-white">{table.table}</span>
-                    </div>
-                    <Table sx={{minWidth: 650}} size="small"
-                           aria-label="a dense table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="left">Column Name</TableCell>
-                                <TableCell align="left">Type</TableCell>
-                                <TableCell align="left">Comment</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {table.columns.map((row) => (
-                                <TableRow key={`${row.Name}`} sx={{'&:last-child td, &:last-child th': {border: 0}}}>
-                                    <TableCell align="left"><span onClick={e => setSearchTerm(e)}
-                                                                  className="intractable-primary">{row.Name}</span></TableCell>
-                                    <TableCell align="left">{row.Type}</TableCell>
-                                    <TableCell align="left">{row.Comment}</TableCell>
+        if (typeof tables === 'object') {
+            tables.forEach(table => {
+                tableCount++
+                tableHTML.push(
+                    <TableContainer key={`${databaseName}${table.table}`} className="table-container" component={Paper}>
+                        <div className="white-text div-chip">
+                            {`${domainName} / ${dataProductName} / ${portType}`} / <span onClick={e => setSearchTerm(e)}
+                                                                                         className="intractable-white">{databaseName}</span> / <span
+                            onClick={e => setSearchTerm(e)} className="intractable-white">{table.table}</span>
+                        </div>
+                        <Table sx={{minWidth: 650}} size="small"
+                               aria-label="a dense table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align="left">Column Name</TableCell>
+                                    <TableCell align="left">Type</TableCell>
+                                    <TableCell align="left">Comment</TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            )
-        })
+                            </TableHead>
+                            <TableBody>
+                                {table.columns.map((row) => (
+                                    <TableRow key={`${row.Name}`}
+                                              sx={{'&:last-child td, &:last-child th': {border: 0}}}>
+                                        <TableCell align="left"><span onClick={e => setSearchTerm(e)}
+                                                                      className="intractable-primary">{row.Name}</span></TableCell>
+                                        <TableCell align="left">{row.Type}</TableCell>
+                                        <TableCell align="left">{row.Comment}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                )
+            })
+        }
     }
 
     const setSearchTerm = e => {
