@@ -52,6 +52,8 @@ const SearchAutocomplete = ({setTables}) => {
     }, [selectedOutputPort]);
 
     const onDomainChanged = e => {
+        dispatch(setInputPort(null))
+        dispatch(setOutputPort(null))
         const domainName = e.target.textContent
         dispatch(setDomain(domainName))
 
@@ -63,6 +65,8 @@ const SearchAutocomplete = ({setTables}) => {
     }
 
     const onDataProductChanged = e => {
+        dispatch(setInputPort(null))
+        dispatch(setOutputPort(null))
         const dataProductName = e.target.textContent
         dispatch(setDataProduct(dataProductName))
 
