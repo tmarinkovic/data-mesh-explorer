@@ -29,13 +29,13 @@ const SearchAutocomplete = ({setTables}) => {
 
     useEffect(() => {
         if (selectedDomain != null) {
-            onDomainChanged({target: {textContent: selectedDomain}})
+            onDomainChanged({target: {textContent: selectedDomain}}, false)
         }
     }, [selectedDomain]);
 
     useEffect(() => {
         if (selectedDataProduct != null) {
-            onDataProductChanged({target: {textContent: selectedDataProduct}})
+            onDataProductChanged({target: {textContent: selectedDataProduct}}, false)
         }
     }, [selectedDataProduct]);
 
@@ -51,9 +51,11 @@ const SearchAutocomplete = ({setTables}) => {
         }
     }, [selectedOutputPort]);
 
-    const onDomainChanged = e => {
-        dispatch(setInputPort(null))
-        dispatch(setOutputPort(null))
+    const onDomainChanged = (e, forceRefreshOfPorts = true) => {
+        if (forceRefreshOfPorts) {
+            dispatch(setInputPort(null))
+            dispatch(setOutputPort(null))
+        }
         const domainName = e.target.textContent
         dispatch(setDomain(domainName))
 
@@ -64,9 +66,11 @@ const SearchAutocomplete = ({setTables}) => {
         setDataProductList(dataProducts)
     }
 
-    const onDataProductChanged = e => {
-        dispatch(setInputPort(null))
-        dispatch(setOutputPort(null))
+    const onDataProductChanged = (e, forceRefreshOfPorts = true) => {
+        if (forceRefreshOfPorts) {
+            dispatch(setInputPort(null))
+            dispatch(setOutputPort(null))
+        }
         const dataProductName = e.target.textContent
         dispatch(setDataProduct(dataProductName))
 
