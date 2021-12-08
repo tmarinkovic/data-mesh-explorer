@@ -78,7 +78,7 @@ const SearchAutocomplete = ({setTables}) => {
         const outputPorts = []
         for (const [databaseName, database] of Object.entries(blueprint[selectedDomain][dataProductName].inputPorts)) {
             if (isNaN(parseInt(databaseName)) === false) {
-                inputPorts.push(`${database.split(".")[1]}.${database.split(".")[3]}`)
+                inputPorts.push(`${database.split(".")[0]}.${database.split(".")[1]}.${database.split(".")[3]}`)
             } else {
                 inputPorts.push(databaseName)
             }
@@ -95,9 +95,21 @@ const SearchAutocomplete = ({setTables}) => {
         const inputPortName = e.target.textContent
         dispatch(setInputPort(inputPortName))
         dispatch(setOutputPort(null))
-        const tableNames = blueprint[selectedDomain][selectedDataProduct].inputPorts[inputPortName].map(table => {
-            return table.table
-        })
+        let tableNames = []
+        if (inputPortName in blueprint[selectedDomain][selectedDataProduct].inputPorts) {
+            tableNames = blueprint[selectedDomain][selectedDataProduct].inputPorts[inputPortName].map(table => {
+                return table.table
+            })
+        } else {
+            try {
+                const inputPortNameParts = e.target.textContent.split(".")
+                tableNames = blueprint[inputPortNameParts[0]][inputPortNameParts[1]].outputPorts[inputPortNameParts[2]].map(table => {
+                    return table.table
+                })
+            } catch (error) {
+            }
+        }
+
         setTables(tableNames)
     }
 
